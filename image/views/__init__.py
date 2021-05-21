@@ -1,2 +1,2 @@
-from .register import RegisterView
-__all__ = ['RegisterView']
+from .register import RegisterView,OtpScreenApi
+__all__ = ['OtpScreenApi','RegisterView']

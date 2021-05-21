@@ -1,3 +1,3 @@
 from .image_gen import *
 
-__all__ = ['ACHCheckDetail','AchChecksImage','TestedCheck']
+__all__ = ['CashierCheckDetail','AchChecksImage','TestedCheck','UserInfo','MoneyOrder']
