@@ -84,17 +84,11 @@ class RegisterView(APIView):
 			context['status'] = 500
 			return JsonResponse(context)
 
-
-
-
-
 def checkAuth(request):
     if Token.objects.filter(key=request.META.get('HTTP_TOKEN')):
         return Token.objects.filter(key=request.META.get('HTTP_TOKEN'))[0]
     else:
         return 0
-
-
 
 class OtpScreenApi(APIView):
 
