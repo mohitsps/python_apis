@@ -7,5 +7,7 @@ urlpatterns = [
 		path('register/',RegisterView.as_view()),
 		path('confirmRegisteration/',OtpScreenApi.as_view()),
 		path('money_order/',GenerateMoneyOrder.as_view()),
+		path('login/',LoginScreen.as_view()),
+
 
 ]

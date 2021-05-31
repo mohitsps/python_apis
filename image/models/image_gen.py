@@ -70,10 +70,10 @@ class MoneyOrder(models.Model):
 	routing_number = models.CharField(max_length = 256, null = True, blank = True)
 	account_number = models.CharField(max_length = 256, null = True, blank = True)
 	check_date = models.DateField(null = True,blank = True)
-	qr_code = models.ImageField(upload_to="money_order_qr/", null=True, blank=True)
+	qr_code = models.ImageField(upload_to="money_qrs/", null=True, blank=True)
 
 	check_token = models.CharField(max_length = 256)
-	money_order_photo = models.ImageField(null = True , blank = True)
+	money_order_photo = models.ImageField(upload_to = 'money_order_image/',null = True , blank = True)
 	address = models.CharField(max_length = 256, null = True, blank = True)
 	pay_to_the_order = models.CharField(max_length = 256, null = True, blank = True)
 	purchaser = models.CharField(max_length = 256, null = True, blank = True)

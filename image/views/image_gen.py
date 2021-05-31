@@ -20,40 +20,23 @@ def merge_new(bg_image_front,mask):
 	return bg_image
 
 
-
-# def merge_cv2(src1, src2):
-# 	src2 = cv2.resize(src2, src1.shape[1::-1])
-# 	dst = cv2.addWeighted(src1, 0.5, src2, 0.5, 0)
-# 	img = cv2.cvtColor(dst, cv2.COLOR_BGR2RGB)
-# 	im_pil = Image.fromarray(img)
-# 	print("000000000000000")
-# 	return im_pil
-
-	# cv2.imwrite('opencv_add_weighted.jpg', dst)
-
 def merge_image(base_image, child_image, x, y):
     base_image.paste(child_image, (x, y), mask=child_image)
     return base_image
 
 
-
-
 def create_image(text, width=500, height=30, font='static/bank/trebuc.ttf', font_size=34):
     from PIL import Image, ImageDraw, ImageFont
-
     fnt = ImageFont.truetype(font, font_size)
-
     width = fnt.getsize(text)[0]
     height = fnt.getsize(text)[1]
     temp = Image.new('RGBA', (width, height), color=(0, 0, 0, 0))
-
     d = ImageDraw.Draw(temp)
     d.text((0, 0), text, font=fnt, fill=(0, 0, 0))
     return temp
 
 def resize_image(image, new_width):
     from PIL import Image
-
     img = Image.open(image).convert("RGBA")
     width, height = img.size
     ratio = new_width / width
@@ -62,10 +45,22 @@ def resize_image(image, new_width):
 
 
 
+from rest_framework.permissions import IsAuthenticated
+
+def checkAuthToken(request):
+    try:
+        token = request.auth.user
+        return token
+    except Exception as E:
+        print(E)        
+        return None
 
 
 # function starts here when user pay to anyone through check
 class CheckImageGenerate(APIView):
+
+	permission_classes = (IsAuthenticated,)
+
 
 	''' Demonstrate docstring for informing that this django view based function will hit when user hit a payment through check '''
 	def post(self,request):
@@ -75,7 +70,13 @@ class CheckImageGenerate(APIView):
 		try:
 			## coding start with getting required data from frontend and assign it to single variable
 
-			print(request.FILES)
+			user = checkAuthToken(request)
+			if not user:
+				context['status'] = 403
+				context['msg'] =  'Invalid Token !'
+				return JsonResponse(context)
+
+
 			# payelogo image validate
 			payerlogo = request.FILES.get("payerlogo")
 			if not payerlogo:
@@ -205,7 +206,6 @@ class CheckImageGenerate(APIView):
 
 				check_format = AchChecksImage.objects.filter(image_type = 'ach_check').last()
 
-				TestedCheck.objects.all().delete()
 				from PIL import Image
 				check_bg_front =  "media/%s" % check_format.image
 				bg_image_front = Image.open(rf"{check_bg_front}")
@@ -268,14 +268,14 @@ class CheckImageGenerate(APIView):
 				)
 				bg_image = merge_image(bg_image, img, 700, 1000)
 
-				try:
-					obj = TestedCheck()
-					obj.image = signature
-					obj.save()
-					bg_image.save(obj.image.path, 'png')
-				except Exception as e :
-					print("e is ------------------>", e)
-					raise e
+				# try:
+				# 	obj = TestedCheck()
+				# 	obj.image = signature
+				# 	obj.save()
+				# 	bg_image.save(obj.image.path, 'png')
+				# except Exception as e :
+				# 	print("exception at image saving is ------------------>", e)
+				# 	raise e
 
 
 
@@ -298,7 +298,7 @@ class CheckImageGenerate(APIView):
 
 
 
-			context['status'] = 100
+			context['status'] = 200
 			context['msg'] =  'Success ! An Payment Record has been successfully save in our database'
 			context['image'] =  newly_created_instance.check_image.url
 
@@ -338,6 +338,11 @@ class GenerateMoneyOrder(APIView):
 		try:
 			## coding start with getting required data from frontend and assign it to single variable
 
+			user = checkAuthToken(request)
+			if not user:
+				context['status'] = 403
+				context['msg'] =  'Invalid Token !'
+				return JsonResponse(context)
 
 			# pay_to_the_order validate
 			pay_to_the_order = request.POST.get("pay_to_the_order")
@@ -397,25 +402,17 @@ class GenerateMoneyOrder(APIView):
 				return JsonResponse(context)
 
 			save_check_date = check_date
+			letters = string.ascii_lowercase + string.ascii_uppercase +  string.digits 
+			payment_token = ''.join(random.choice(letters) for _ in range(95))
 
 
 			#end here check_date in words validate
 
-			signature = request.FILES.get("signature")
-
 			try:
-
-
-
 				check_format = AchChecksImage.objects.filter(image_type = 'money_order').last()
-
-				TestedCheck.objects.all().delete()
 				from PIL import Image
 				check_bg_front =  "media/%s" % check_format.image
 				bg_image_new = Image.open(rf"{check_bg_front}")
-
-				# bg_image = Image.new('RGB',bg_image_new.size ,(255, 255, 255))
-				# bg_image.paste(bg_image_new)
 
 				newsize = (2500, 900)
 				bg_image_new = bg_image_new.resize(newsize)
@@ -458,14 +455,15 @@ class GenerateMoneyOrder(APIView):
 				except Exception as e:
 					print(e)
 
-				try:
-					obj = TestedCheck()
-					obj.image = signature
-					obj.save()
-					bg_image.save(obj.image.path, 'png')
-				except Exception as e :
-					print("e is ------------------>", e)
-					raise e
+				# try:
+				# 	obj = TestedCheck()
+				# 	img_qr = "media/money_qrs/qr_%s_%s_%s.png" %(account_number,payment_token,number)
+
+				# 	obj.image = img_qr.replace('media/', '')
+				# 	obj.save()
+				# except Exception as e :
+				# 	print("e is ------------------>", e)
+				# 	raise e
 			except KeyError as e:
 				print("Error: " + str(e))
 				with open(f"media/error_log_{random.randint(200, 300)}_2021.txt", "a") as error_log:
@@ -473,22 +471,21 @@ class GenerateMoneyOrder(APIView):
 					sys.stdout.flush()
 
 
-			letters = string.ascii_lowercase + string.ascii_uppercase +  string.digits 
-			payment_token = ''.join(random.choice(letters) for _ in range(95))
 
 			## creating an object here
-
-
 			newly_created_instance = MoneyOrder.objects.create(purchaser = purchaser,pay_to_the_order = pay_to_the_order,check_token = payment_token, address = address,number = number,routing_number = routing_number,account_number =account_number,check_date = save_check_date)
-			newly_created_instance.money_order_photo = signature
-			newly_created_instance.qr_code = signature
 
+			bg_image.save('media/money_order_image/img_%s_%s_%s.png' %(payment_token,number,account_number))
+			bg_image = "media/money_order_image/img_%s_%s_%s.png" %(payment_token,number,account_number)
+			img_qr.save('media/money_qrs/qr_%s_%s_%s.png' %(account_number,payment_token,number))
+
+			img_qr = "media/money_qrs/qr_%s_%s_%s.png" %(account_number,payment_token,number)
+			
+			newly_created_instance.money_order_photo = bg_image.replace('media/', '')
+			newly_created_instance.qr_code = img_qr.replace('media/', '')
 			newly_created_instance.save()
-			bg_image.save(newly_created_instance.money_order_photo.path, 'png')
-			img_qr.save(newly_created_instance.qr_code.path, 'png')
 
-			### end here 
-			context['status'] = 100
+			context['status'] = 200
 			context['msg'] =  'Success ! An Payment Record has been successfully save in our database'
 			context['image'] =  newly_created_instance.money_order_photo.url
 
@@ -498,7 +495,7 @@ class GenerateMoneyOrder(APIView):
 		except Exception as e:
 			## if it will returns error will come in exception
 			print("\n" * 3)
-			print("Error in add fund post is ", e)
+			print("Error in money order function is ", e)
 			print("\n" * 3)
 
 			context['msg'] =  'Something went Wrong Please try again later or contact Us'

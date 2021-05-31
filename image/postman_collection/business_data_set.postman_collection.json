@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "ec626260-41a2-4d69-9c79-dc6e1da58314",
+		"name": "business_data_set",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "business_data_set",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "9968e4ae0610bcfb993535e353e445b56d8eaeb3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/business_excel/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"business_excel",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

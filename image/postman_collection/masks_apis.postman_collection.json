@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "38daf0ce-4370-4668-a0a7-8f36db62ab60",
+		"name": "masks_apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cashier_check_generate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "payerlogo",
+							"type": "file",
+							"src": "/E:/github_payment/masks/imgpsh_fullsize_anim (3).png"
+						},
+						{
+							"key": "pay",
+							"value": "Acme Online Grocery Shop",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "5000",
+							"type": "text"
+						},
+						{
+							"key": "valid_upto",
+							"value": "2020-10-12",
+							"type": "text"
+						},
+						{
+							"key": "receiver_name",
+							"value": "Mohit",
+							"type": "text"
+						},
+						{
+							"key": "receiver_email",
+							"value": "sharma@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "sender_name",
+							"value": "seshu",
+							"type": "text"
+						},
+						{
+							"key": "amountInWords",
+							"value": "Five Thousand Rupee Only",
+							"type": "text"
+						},
+						{
+							"key": "memo",
+							"value": "First check in MM03",
+							"type": "text"
+						},
+						{
+							"key": "banklogo",
+							"type": "file",
+							"src": "/E:/github_payment/masks/download.jfif"
+						},
+						{
+							"key": "signature",
+							"type": "file",
+							"src": "/E:/github_payment/masks/download.jfif"
+						},
+						{
+							"key": "check_number",
+							"value": "9874",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "321, Model Town Pathankot",
+							"type": "text"
+						},
+						{
+							"key": "account_number",
+							"value": "125001011654",
+							"type": "text"
+						},
+						{
+							"key": "number",
+							"value": "98751",
+							"type": "text"
+						},
+						{
+							"key": "routing_number",
+							"value": "974588485",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/check_generate/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"check_generate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "money_order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "pay_to_the_order",
+							"value": "Acme Online Grocery Shop",
+							"type": "text"
+						},
+						{
+							"key": "purchaser",
+							"value": "Pay to the order of Mohit",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "321, Model Town Pathankot",
+							"type": "text"
+						},
+						{
+							"key": "number",
+							"value": "125001011654",
+							"type": "text"
+						},
+						{
+							"key": "account_number",
+							"value": "1250014",
+							"type": "text"
+						},
+						{
+							"key": "check_date",
+							"value": "2020-12-01",
+							"type": "text"
+						},
+						{
+							"key": "routing_number",
+							"value": "684986497398",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/money_order/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"money_order",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

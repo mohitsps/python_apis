@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "c44cd6cf-78fd-4442-9139-3bb2f589d79d",
+		"name": "wallet_apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "qr_Code_for_every_Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "logged_in_user_wallet_id",
+							"value": "e97b4101-6db5-4fbc-acf3-727ef4cf8d53",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "500",
+							"type": "text"
+						},
+						{
+							"key": "receiver_wallet_id",
+							"value": "277ab1cb-64d9-4635-a1fc-cfda3f650374",
+							"type": "text"
+						},
+						{
+							"key": "transaction_purpose",
+							"value": "For match lost",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/generate_dynamic_qr_code/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"generate_dynamic_qr_code",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request_any_payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "logged_in_user_wallet_id",
+							"value": "e97b4101-6db5-4fbc-acf3-727ef4cf8d53",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "500",
+							"type": "text"
+						},
+						{
+							"key": "requested_user_wallet_id",
+							"value": "277ab1cb-64d9-4635-a1fc-cfda3f650374",
+							"type": "text"
+						},
+						{
+							"key": "transaction_purpose",
+							"value": "For match lost",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/request_any_payment/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"request_any_payment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_unique_qr_code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "logged_in_user_wallet_id",
+							"value": "e97b4101-6db5-4fbc-acf3-727ef4cf8d53",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "500",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "qr_code_wallet_id",
+							"value": "277ab1cb-64d9-4635-a1fc-cfda3f650374",
+							"type": "text"
+						},
+						{
+							"key": "transaction_purpose",
+							"value": "For match lost",
+							"type": "text",
+							"disabled": true
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/user_unique_qr_code/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user_unique_qr_code",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_wallet_detail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "logged_in_user_wallet_id",
+							"value": "277ab1cb-64d9-4635-a1fc-cfda3f650374",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "500",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "qr_code_wallet_id",
+							"value": "277ab1cb-64d9-4635-a1fc-cfda3f650374",
+							"type": "text"
+						},
+						{
+							"key": "transaction_purpose",
+							"value": "For match lost",
+							"type": "text",
+							"disabled": true
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/user_wallet_detail/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user_wallet_detail",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send_payment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "logged_in_user_wallet_id",
+							"value": "e97b4101-6db5-4fbc-acf3-727ef4cf8d53",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "500",
+							"type": "text"
+						},
+						{
+							"key": "receiver_wallet_id",
+							"value": "277ab1cb-64d9-4635-a1fc-cfda3f650374",
+							"type": "text"
+						},
+						{
+							"key": "transaction_purpose",
+							"value": "For match lost",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/send_any_payment/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"send_any_payment",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
